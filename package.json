@@ -1,0 +1,55 @@
+{
+  "name": "frova-react-kit",
+  "version": "0.0.1",
+  "description": "React components for frova",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FrovaHappy/frova-react-kit"
+  },
+  "bugs": {
+    "url": "https://github.com/FrovaHappy/frova-react-kit/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "publish": "tsup && npm publish --access public"
+  },
+  "keywords": [],
+  "author": "frova_happy",
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^9.2.0",
+    "@testing-library/react": "^15.0.7",
+    "@types/module-alias": "^2.0.4",
+    "@types/remark-heading-id": "^1.0.0",
+    "@vitejs/plugin-react-swc": "^3.6.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "globals": "^15.2.0",
+    "jsdom": "^24.0.0",
+    "module-alias": "^2.2.3",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.9.0",
+    "vitest": "^1.6.0"
+  },
+  "dependencies": {
+    "rehype-highlight": "^7.0.0",
+    "rehype-stringify": "^10.0.0",
+    "remark": "^15.0.1",
+    "remark-heading-id": "^1.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.0"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1"
+  }
+}
