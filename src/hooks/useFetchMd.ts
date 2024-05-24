@@ -5,7 +5,9 @@ export default async function useFetchMd(url: string) {
   if (!file.ok) {
     throw new Error('fetch: Error fetching file')
   }
-  if (file.headers.get('content-type') !== 'text/plain; charset=utf-8') {
+  const headerType = file.headers.get('content-type')
+  if (!(headerType?.includes('text/plain') || headerType?.includes('text/markdown'))) {
+    console.warn(file.headers.get('content-type'))
     throw new Error('fetch: content type is not text/plain')
   }
 

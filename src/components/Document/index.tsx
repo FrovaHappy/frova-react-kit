@@ -29,7 +29,7 @@ function Document(props: DocumentProps) {
       }
     }
     promise()
-  }, [])
+  }, [section])
   if (error) return <div>{error}</div>
   return (
     <div>
