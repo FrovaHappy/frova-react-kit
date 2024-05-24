@@ -17,16 +17,12 @@ function Document(props: DocumentProps) {
   const [error, setError] = useState<string | null>(null)
   const [anchors, setAnchors] = useState<Anchor[]>([])
 
-  const [value, setValue] = useState('')
-
   useEffect(() => {
     const promise = async () => {
       try {
         const md = await useFetchMd(section.url)
-        console.log(md)
         const html = await useParseMd(md)
         setData(html)
-        setValue('hola')
         setAnchors(useBuildAnchors(html))
       } catch (e: any) {
         setError(e.message)
@@ -38,9 +34,7 @@ function Document(props: DocumentProps) {
   return (
     <div>
       <Nav articles={articles} section={section} setSection={setSection} />
-      {value}
       <Suspense fallback={<Loading />}>
-        <h1>Hello World dd</h1>
         <Content html={data} />
         <InThisArticle items={anchors} />
       </Suspense>
