@@ -10,7 +10,7 @@
     "moduleResolution": "Bundler",
     "jsx": "react-jsx",
     "resolveJsonModule": true,
-    "types": ["vitest/globals", "React"],
+    "types": ["vitest/globals", "React", "./src/globals.d.ts"],
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
@@ -18,7 +18,8 @@
       "@components/*": ["src/components/*"],
       "@hooks/*": ["src/hooks/*"],
       "@mocks/*": ["src/mocks/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@styles/*": ["src/styles/*"]
     }
   },
   "include": ["src/**/*"]
