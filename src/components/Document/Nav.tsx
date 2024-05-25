@@ -1,4 +1,6 @@
 import type { Article, Section } from '@/types'
+
+import style from '@styles/Nav.module.scss'
 interface Props {
   articles: Article[]
   section: Section
@@ -22,10 +24,10 @@ function NavItem(props: NavItemProps) {
 function Nav(props: Props) {
   const { articles, section, setSection } = props
   return (
-    <nav>
+    <nav className={style.nav}>
       {articles.map(article => (
         <ul key={article.title}>
-          <div>{article.title}</div>
+          <div className={style.nav__title}>{article.title}</div>
           {article.sections.map(sectionActive => (
             <NavItem
               section={section}
