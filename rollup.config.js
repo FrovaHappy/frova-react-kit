@@ -9,7 +9,25 @@ import alias from '@rollup/plugin-alias'
 // import terser from '@rollup/plugin-terser'
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx', '.css', '.json', '.scss']
-import 'module-alias/register'
+
+import { compilerOptions } from './tsconfig.json'
+import { resolve } from 'path'
+
+const customAlias = Object.entries(compilerOptions.paths).reduce((acc, [key, [value]]) => {
+  const aliasKey = key.substring(0, key.length - 2)
+  const path = value.substring(0, value.length - 2)
+  return {
+    ...acc,
+    [aliasKey]: resolve(__dirname, path)
+  }
+}, {})
+
+const getAlias = Object.entries(customAlias).map(([key, value]) => {
+  return {
+    find: key,
+    replacement: value
+  }
+})
 
 export default [
   {
@@ -33,23 +51,23 @@ export default [
       // terser(),
       postcss(),
       alias({
-        entries: [
-          {
-            find: '@styles',
-            replacement: __dirname + '/src/styles'
-          }
-        ]
+        entries: getAlias
       })
     ]
   },
   {
-    input: 'src/types.d.ts',
+    input: 'src/index.ts',
     output: [
       {
         file: './dist/types.d.ts',
         format: 'es'
       }
     ],
-    plugins: [dts.default()]
+    plugins: [
+      dts.default(),
+      alias({
+        entries: getAlias
+      })
+    ]
   }
 ]
