@@ -1,6 +1,6 @@
 import type { Article, Section } from '@/types'
 
-import style from '@styles/Nav.module.css'
+import style from '@styles/Nav.module.scss'
 interface Props {
   articles: Article[]
   section: Section

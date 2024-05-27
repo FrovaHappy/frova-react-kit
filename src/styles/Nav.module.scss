@@ -1,0 +1,11 @@
+.nav {
+  padding: 1rem;
+  & ul {
+    display: flex;
+    flex-direction: column;
+    & li {
+      all: unset;
+      display: flex;
+    }
+  }
+}
