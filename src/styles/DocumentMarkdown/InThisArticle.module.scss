@@ -1,0 +1,44 @@
+.inThisArticle {
+  all: unset;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  overflow: auto;
+  height: min-content;
+  max-height: 100%;
+  & x-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  & a {
+    all: unset;
+    display: flex;
+    align-items: center;
+    padding: .5rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    &:hover {
+      background: #eeeeee5e;
+      color: #000;
+    }
+    &.active {
+      background: #eee;
+      color: #000;
+    }
+  }
+}
+.space {
+  &__1 {
+    margin-left: 0.25rem !important;
+  };
+  &__2 {
+    margin-left: 0.5rem !important;
+  }
+  &__3 {
+    margin-left: 0.75rem !important;
+  }
+}

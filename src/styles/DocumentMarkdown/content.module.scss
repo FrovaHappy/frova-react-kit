@@ -1,0 +1,28 @@
+.content {
+  min-width: 100px;
+  width: -webkit-fill-available;
+  max-width: 1200px;
+  overflow: auto;
+  & h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    margin: .5rem 0;
+    width: 100%;
+
+  }
+  & h1 {
+    font-size: 2.5rem;
+    border-bottom: 0.5px solid #ccc;
+  }
+  & h2 {
+    font-size: 2rem;
+  }
+  & h3 {
+    font-size: 1.5rem;
+  }
+  & h4, h5, h6 {
+    font-size: 1.25rem;
+  }
+  & p {
+    text-wrap: balance;
+  }
+}

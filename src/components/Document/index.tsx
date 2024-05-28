@@ -7,6 +7,7 @@ import useParseMd from '@hooks/useParseMd'
 import Loading from '@/components/Loading'
 import InThisArticle from './InThisArticle'
 import useBuildAnchors from '@hooks/useBuildAnchors'
+import style from '@styles/DocumentMarkdown/index.module.scss'
 interface DocumentProps {
   articles: Article[]
 }
@@ -32,7 +33,7 @@ function Document(props: DocumentProps) {
   }, [section])
   if (error) return <div>{error}</div>
   return (
-    <div>
+    <div className={style.document}>
       <Nav articles={articles} section={section} setSection={setSection} />
       <Suspense fallback={<Loading />}>
         <Content html={data} />

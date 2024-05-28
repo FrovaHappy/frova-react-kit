@@ -1,6 +1,6 @@
 import type { Article, Section } from '@/types'
 
-import style from '@styles/Nav.module.scss'
+import style from '@styles/DocumentMarkdown/Nav.module.scss'
 interface Props {
   articles: Article[]
   section: Section
@@ -11,9 +11,14 @@ interface NavItemProps extends Omit<Props, 'articles'> {
 }
 function NavItem(props: NavItemProps) {
   const { section, setSection, sectionActive } = props
-  const isActive = section.hashtag === sectionActive.hashtag ? 'active' : ''
+  const isActive = section.hashtag === sectionActive.hashtag ? style.active : ''
+  const spaces: Record<number, string> = {
+    1: style.space__1,
+    2: style.space__2
+  }
+  const isSpace = spaces[sectionActive.space] ?? ''
   return (
-    <li>
+    <li className={isSpace}>
       <button className={isActive} onClick={() => setSection(sectionActive)}>
         {sectionActive.title}
       </button>
@@ -27,7 +32,7 @@ function Nav(props: Props) {
     <nav className={style.nav}>
       {articles.map(article => (
         <ul key={article.title}>
-          <div className={style.nav__title}>{article.title}</div>
+          <x-title>{article.title}</x-title>
           {article.sections.map(sectionActive => (
             <NavItem
               section={section}
