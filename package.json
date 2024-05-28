@@ -22,7 +22,7 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "build": "rollup -c --bundleConfigAsCjs",
-    "dev": "npm run build && npm link",
+    "dev": "nodemon",
     "publish": "tsup && npm publish --access public"
   },
   "keywords": [],
@@ -45,6 +45,7 @@
     "eslint-plugin-react": "^7.34.1",
     "globals": "^15.2.0",
     "jsdom": "^24.0.0",
+    "nodemon": "^3.1.1",
     "postcss": "^8.4.38",
     "postcss-modules": "^6.0.0",
     "postcss-preset-env": "^9.5.14",
