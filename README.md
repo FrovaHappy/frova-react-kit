@@ -49,6 +49,7 @@ type Article = {
 
 type Section = {
   title: string
+  hashtag: string
   url: string
   space: number
 }
