@@ -41,6 +41,24 @@ const Rules = {
     title: 'should return a html string with blockquote',
     expect: ['> hello blockquote', '<blockquote>\n<p>hello blockquote</p>\n</blockquote>']
   },
+  ol: {
+    title: 'should return a html string with ol',
+    expect: ['1. hello ol \n2. hello ol', '<ol>\n<li>hello ol</li>\n<li>hello ol</li>\n</ol>']
+  },
+  tasklist: {
+    title: 'should return a html string with tasklist',
+    expect: [
+      '- [ ] hello tasklist \n- [x] hello tasklist',
+      '<ul class="contains-task-list">\n<li class="task-list-item"><input type="checkbox" disabled> hello tasklist</li>\n<li class="task-list-item"><input type="checkbox" checked disabled> hello tasklist</li>\n</ul>'
+    ]
+  },
+  table: {
+    title: 'should return a html string with table',
+    expect: [
+      '| a | b  |  c |  d  |\n| - | :- | :-: | -: |\n| 1 | 2 | 3 | 4 |',
+      '<table>\n<thead>\n<tr>\n<th>a</th>\n<th align="left">b</th>\n<th align="center">c</th>\n<th align="right">d</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td align="left">2</td>\n<td align="center">3</td>\n<td align="right">4</td>\n</tr>\n</tbody>\n</table>'
+    ]
+  },
   ul: {
     title: 'should return a html string with ul',
     expect: ['- hello ul \n- hello ul', '<ul>\n<li>hello ul</li>\n<li>hello ul</li>\n</ul>']
@@ -63,9 +81,13 @@ const Rules = {
       '<p><img src="https://example.com/image.png" alt="alt">\n<img src="https://example.com/image.png" alt="alt"></p>'
     ]
   },
-  a: {
+  link: {
     title: 'should return a html string with a',
     expect: ['[hello a](https://example.com)', '<p><a href="https://example.com">hello a</a></p>']
+  },
+  linkRef: {
+    title: 'should return a html string with a',
+    expect: ['[hello a][1]\n\n[1]: https://example.com', '<p><a href="https://example.com">hello a</a></p>']
   },
   hr: {
     title: 'should return a html string with hr',
