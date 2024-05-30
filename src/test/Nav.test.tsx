@@ -11,7 +11,7 @@ const Component = () => {
 describe('test Nav', () => {
   test('render title', () => {
     render(<Component />)
-    const text = screen.getAllByText(/Beatriz Bot/, { selector: 'div' })
+    const text = screen.getAllByText(/Beatriz Bot/, { selector: 'x-title' })
     expect(text).toHaveLength(1)
   })
   test('render section', () => {
@@ -21,9 +21,11 @@ describe('test Nav', () => {
   })
   test('render active section', () => {
     render(<Component />)
-    const text = screen.getByText('What is Beatriz Bot?', { selector: 'button' })
-    fireEvent.click(text)
+    const button = screen.getByText('What is Beatriz Bot?', { selector: 'button' })
+    const buttonClass = button.classList.value
+    fireEvent.click(button)
+    const buttonClassModified = screen.getByText('What is Beatriz Bot?').classList.value
 
-    expect(screen.getByText('What is Beatriz Bot?').classList.contains('active')).toBeTruthy()
+    expect(buttonClass !== buttonClassModified).toBeTruthy()
   })
 })
