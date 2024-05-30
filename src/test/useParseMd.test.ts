@@ -49,6 +49,13 @@ const Rules = {
     title: 'should return a html string with img',
     expect: ['![alt](https://example.com/image.png)', '<p><img src="https://example.com/image.png" alt="alt"></p>']
   },
+  imgWithUrl: {
+    title: 'should return a html string with img with url',
+    expect: [
+      '[![alt](https://example.com/image.png)](https://example.com)',
+      '<p><a href="https://example.com"><img src="https://example.com/image.png" alt="alt"></a></p>'
+    ]
+  },
   imgs: {
     title: 'should return a html string with imgs',
     expect: [
