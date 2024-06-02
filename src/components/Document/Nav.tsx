@@ -1,12 +1,12 @@
 import type { Article, Section } from '@/types'
 
 import style from '@styles/DocumentMarkdown/Nav.module.scss'
-interface Props {
+export interface NavProps {
   articles: Article[]
   section: Section
   setSection: (article: Section) => void
 }
-interface NavItemProps extends Omit<Props, 'articles'> {
+interface NavItemProps extends Omit<NavProps, 'articles'> {
   sectionActive: Section
 }
 function NavItem(props: NavItemProps) {
@@ -26,7 +26,7 @@ function NavItem(props: NavItemProps) {
   )
 }
 
-function Nav(props: Props) {
+function Nav(props: NavProps) {
   const { articles, section, setSection } = props
   return (
     <nav className={style.nav}>
