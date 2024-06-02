@@ -4,28 +4,29 @@ import articles from '@mocks/articles'
 import { useState } from 'react'
 
 const Component = () => {
-  const [section, SetSection] = useState({ title: '', hashtag: '', url: '', space: 0 })
+  const [section, SetSection] = useState(articles[0].sections[0])
   return <Nav articles={articles} section={section} setSection={SetSection} />
 }
+const sections = articles[0].sections
 
 describe('test Nav', () => {
   test('render title', () => {
     render(<Component />)
-    const text = screen.getAllByText(/Beatriz Bot/, { selector: 'x-title' })
+    const text = screen.getAllByText(articles[0].title, { selector: 'x-title' })
     expect(text).toHaveLength(1)
   })
   test('render section', () => {
     render(<Component />)
-    const text = screen.getAllByText('What is Beatriz Bot?', { selector: 'button' })
-    expect(text).toHaveLength(1)
+    const text = screen.getByText(sections[1].title, { selector: 'button' })
+    expect(text.innerHTML).toBe(sections[1].title)
   })
   test('render active section', () => {
     render(<Component />)
-    const button = screen.getByText('What is Beatriz Bot?', { selector: 'button' })
-    const buttonClass = button.classList.value
+    const button = screen.getByText(sections[1].title, { selector: 'button' })
+    const buttonClass = button.classList.value // expect to be without active class by default
     fireEvent.click(button)
-    const buttonClassModified = screen.getByText('What is Beatriz Bot?').classList.value
+    const buttonClassModified = screen.getByText(sections[1].title, { selector: 'button' }).classList.value
 
-    expect(buttonClass !== buttonClassModified).toBeTruthy()
+    expect(buttonClass).not.toEqual(buttonClassModified)
   })
 })
