@@ -1,5 +1,5 @@
-import { Suspense, useEffect, useState } from 'react'
-import Nav from './Nav'
+import React, { Suspense, useEffect, useState } from 'react'
+import Nav, { type NavProps } from './Nav'
 import { Anchor, Article, Section } from '@/types'
 import Content from './Content'
 import useFetchMd from '@hooks/useFetchMd'
@@ -11,6 +11,16 @@ import style from '@styles/DocumentMarkdown/index.module.scss'
 interface DocumentProps {
   articles: Article[]
 }
+function MainContent(props: React.PropsWithChildren<{}> & NavProps) {
+  const { articles, section, setSection, children } = props
+  return (
+    <div className={style.document}>
+      <Nav articles={articles} section={section} setSection={setSection} />
+      {children}
+    </div>
+  )
+}
+
 function Document(props: DocumentProps) {
   const { articles } = props
   const [section, setSection] = useState<Section>(articles[0].sections[0])
@@ -31,15 +41,20 @@ function Document(props: DocumentProps) {
     }
     promise()
   }, [section])
-  if (error) return <div>{error}</div>
+
+  if (error)
+    return (
+      <MainContent articles={articles} section={section} setSection={setSection}>
+        <div>{error}</div>
+      </MainContent>
+    )
   return (
-    <div className={style.document}>
-      <Nav articles={articles} section={section} setSection={setSection} />
+    <MainContent articles={articles} section={section} setSection={setSection}>
       <Suspense fallback={<Loading />}>
         <Content html={data} />
         <InThisArticle items={anchors} />
       </Suspense>
-    </div>
+    </MainContent>
   )
 }
 
