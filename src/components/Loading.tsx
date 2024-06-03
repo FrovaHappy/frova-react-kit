@@ -1,5 +1,10 @@
+import style from '@styles/Loading.module.scss'
 function Loading() {
-  return <div>Loading ...</div>
+  return (
+    <div className={style.content}>
+      <div className={style.loader} />
+    </div>
+  )
 }
 
 export default Loading
