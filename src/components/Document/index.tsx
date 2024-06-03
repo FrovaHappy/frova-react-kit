@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Nav, { type NavProps } from './Nav'
 import { Anchor, Article, Section } from '@/types'
 import Content from './Content'
@@ -25,11 +25,13 @@ function Document(props: DocumentProps) {
   const { articles } = props
   const [section, setSection] = useState<Section>(articles[0].sections[0])
   const [data, setData] = useState<string>('')
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [anchors, setAnchors] = useState<Anchor[]>([])
 
   useEffect(() => {
     const promise = async () => {
+      setLoading(true)
       try {
         const md = await useFetchMd(section.url)
         const html = await useParseMd(md)
@@ -37,10 +39,19 @@ function Document(props: DocumentProps) {
         setAnchors(useBuildAnchors(html))
       } catch (e: any) {
         setError(e.message)
+      } finally {
+        setLoading(false)
       }
     }
     promise()
   }, [section])
+
+  if (loading)
+    return (
+      <MainContent articles={articles} section={section} setSection={setSection}>
+        <Loading />
+      </MainContent>
+    )
 
   if (error)
     return (
@@ -50,10 +61,8 @@ function Document(props: DocumentProps) {
     )
   return (
     <MainContent articles={articles} section={section} setSection={setSection}>
-      <Suspense fallback={<Loading />}>
-        <Content html={data} />
-        <InThisArticle items={anchors} />
-      </Suspense>
+      <Content html={data} />
+      <InThisArticle items={anchors} />
     </MainContent>
   )
 }
