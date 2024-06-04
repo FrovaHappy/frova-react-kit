@@ -1,5 +1,4 @@
----
-name: Example1
+name: test:coverage
 
 on:
   pull_request:
