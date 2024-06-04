@@ -1,0 +1,35 @@
+---
+name: Example1
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Unit Tests
+        run: npx vitest --coverage # or run npm script
+
+      - name: Publish Results Badge
+        uses: wjervis7/vitest-badge-action@v1.0.0
+        if: success() || failure() # run whether steps succeed or not
+        with:
+          result-type: lines
+          gist-token: ${{ secrets.GIST_TOKEN }} # if you want to upload badge to gist
+          gist-url: https://gist.github.com/FrovaHappy/d034bc4620b221ded425bf3e5241c577
+          upload-badge: ${{ github.base_ref == 'refs/heads/main' }}
