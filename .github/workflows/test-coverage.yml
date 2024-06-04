@@ -5,9 +5,6 @@ on:
     branches: [ "main" ]
 jobs:
   run-tests:
-    env:
-      author: FrovaHappy
-      gist_id: d034bc4620b221ded425bf3e5241c577
     runs-on: ubuntu-latest
 
     steps:
@@ -23,10 +20,4 @@ jobs:
         run: npm run test:coverage
 
       - name: Publish Results Badge
-        uses: wjervis7/vitest-badge-action@v1.0.0
-        if: success() || failure()
-        with:
-          result-type: lines
-          gist-token: ${{ secrets.GIST_TOKEN }}
-          gist-url: https://gist.github.com/${{env.author}}/${{ env.gist_id }}
-          upload-badge: ${{ github.base_ref == 'refs/heads/main' }}
+        uses: we-cli/coverage-badge-action@main
