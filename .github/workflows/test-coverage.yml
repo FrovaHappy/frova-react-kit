@@ -9,9 +9,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        run: |
-          echo "Checking out repository..."
       - name: Checkout Code
         uses: actions/checkout@v3
 
@@ -24,7 +21,7 @@ jobs:
         run: npm i
 
       - name: Run Unit Tests
-        run: npx vitest --coverage # or run npm script
+        run: npm run test:coverage
 
       - name: Publish Results Badge
         uses: wjervis7/vitest-badge-action@v1.0.0
