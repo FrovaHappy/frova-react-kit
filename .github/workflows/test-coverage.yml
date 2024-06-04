@@ -1,15 +1,17 @@
 name: test:coverage
 
 on:
-  pull_request:
-    branches:
-      - main
+  push:
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Repository
+        run: |
+          echo "Checking out repository..."
       - name: Checkout Code
         uses: actions/checkout@v3
 
@@ -26,7 +28,7 @@ jobs:
 
       - name: Publish Results Badge
         uses: wjervis7/vitest-badge-action@v1.0.0
-        if: success() || failure() # run whether steps succeed or not
+        if: success() || failure()
         with:
           result-type: lines
           gist-token: ${{ secrets.GIST_TOKEN }}
