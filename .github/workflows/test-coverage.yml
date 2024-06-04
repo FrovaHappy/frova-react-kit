@@ -3,19 +3,18 @@ name: test:coverage
 on:
   push:
     branches: [ "main" ]
-
 jobs:
-  build:
+  run-tests:
+    env:
+      author: FrovaHappy
+      gist_id: d034bc4620b221ded425bf3e5241c577
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Use Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: 20
 
       - name: Install dependencies
         run: npm i
@@ -29,5 +28,5 @@ jobs:
         with:
           result-type: lines
           gist-token: ${{ secrets.GIST_TOKEN }}
-          gist-url: https://gist.github.com/FrovaHappy/d034bc4620b221ded425bf3e5241c577
+          gist-url: https://gist.github.com/${{env.author}}/${{ env.gist_id }}
           upload-badge: ${{ github.base_ref == 'refs/heads/main' }}
