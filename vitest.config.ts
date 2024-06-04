@@ -24,7 +24,8 @@ export default defineConfig({
     environment: 'jsdom',
     coverage: {
       exclude: ['.eslintrc.cjs', 'postcss.config.mjs', 'src/index.ts'],
-      reporter: ['json-summary']
+      reporter: ['json-summary'],
+      reportOnFailure: true
     }
   }
 })
