@@ -1,4 +1,5 @@
 # frova-react-kit
+[![cov](https://FrovaHappy.github.io/frova-react-kit/badges/coverage.svg)](https://github.com/FrovaHappy/frova-react-kit/actions)
 
 A catalog of react components and custom hooks for easy the development of the UI
 
