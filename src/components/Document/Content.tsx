@@ -1,4 +1,4 @@
-import style from '@styles/DocumentMarkdown/Content.module.scss'
+import style from '@styles/DocumentMarkdown/content.module.scss'
 interface Props {
   html: string
 }
