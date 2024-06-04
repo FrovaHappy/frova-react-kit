@@ -19,7 +19,7 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm i
 
       - name: Run Unit Tests
         run: npx vitest --coverage # or run npm script
@@ -29,6 +29,6 @@ jobs:
         if: success() || failure() # run whether steps succeed or not
         with:
           result-type: lines
-          gist-token: ${{ secrets.GIST_TOKEN }} # if you want to upload badge to gist
+          gist-token: ${{ secrets.GIST_TOKEN }}
           gist-url: https://gist.github.com/FrovaHappy/d034bc4620b221ded425bf3e5241c577
           upload-badge: ${{ github.base_ref == 'refs/heads/main' }}
