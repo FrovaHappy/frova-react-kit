@@ -1,6 +1,6 @@
 # frova-react-kit
 
-[![cov](https://FrovaHappy.github.io/frova-react-kit/badges/coverage.svg)](https://github.com/FrovaHappy/frova-react-kit/actions)
+[![cov](https://FrovaHappy.github.io/frova-react-kit/badges/coverage.svg)](https://github.com/FrovaHappy/frova-react-kit/actions) [![tests](https://github.com/FrovaHappy/frova-react-kit/actions/workflows/main.yml/badge.svg)](https://github.com/FrovaHappy/frova-react-kit/actions/actions) [![npm](https://img.shields.io/npm/v/frova-react-kit)](https://www.npmjs.com/package/frova-react-kit) [![license](https://img.shields.io/github/license/FrovaHappy/frova-react-kit)](https://github.com/FrovaHappy/frova-react-kit/blob/main/LICENSE)
 
 A catalog of react components and custom hooks for easy the development of the UI
 
