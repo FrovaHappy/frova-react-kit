@@ -12,21 +12,16 @@ const documents = `
 const documentAnchorsExp: Anchor[] = [
   {
     space: 0,
-    title: 'Hello World',
-    url: 'hello-world'
-  },
-  {
-    space: 1,
     title: 'This is a heading h2',
     url: 'this-is-a-heading-h2'
   },
   {
-    space: 2,
+    space: 1,
     title: 'This is a heading h3',
     url: 'this-is-a-heading-h3'
   },
   {
-    space: 2,
+    space: 1,
     title: 'This is a heading h3 without an id',
     url: ''
   }
