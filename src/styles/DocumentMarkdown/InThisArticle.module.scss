@@ -8,11 +8,13 @@
   overflow: auto;
   height: min-content;
   max-height: 100%;
+
   & x-title {
     font-size: 1.25rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
   }
+
   & a {
     all: unset;
     display: flex;
@@ -21,24 +23,21 @@
     border: none;
     background: none;
     cursor: pointer;
+    border-left: 1px solid transparent;
     &:hover {
-      background: #eeeeee5e;
-      color: #000;
+      color: var(--color-primary);
+        border-left: 1px solid var(--color-primary);
     }
+
     &.active {
-      background: #eee;
-      color: #000;
+      color: var(--color-primary);
+        border-left: 1px solid var(--color-primary);
     }
   }
 }
+
 .space {
   &__1 {
-    margin-left: 0.25rem !important;
-  };
-  &__2 {
-    margin-left: 0.5rem !important;
-  }
-  &__3 {
-    margin-left: 0.75rem !important;
+    padding-left: 1rem !important;
   }
 }
