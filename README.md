@@ -1,4 +1,5 @@
 # frova-react-kit
+
 [![cov](https://FrovaHappy.github.io/frova-react-kit/badges/coverage.svg)](https://github.com/FrovaHappy/frova-react-kit/actions)
 
 A catalog of react components and custom hooks for easy the development of the UI
@@ -30,7 +31,7 @@ const App = () => (
         sections: [
           {
             title: 'Hello Section 1',
-            url: 'https://example.com/hello.md',
+            url: 'https://gist.githubusercontent.com/FrovaHappy/58c836c7b48c4b2094f3037005c24b04/raw/1c7623b02cb68b4295654a31e6c0c617eb67ce43/exemple.md',
             space: 0,
           },
         ],
@@ -64,7 +65,7 @@ type Section = {
 
 ## Roadmap
 
-> [!INFO]
+> [!NOTE]
 > If you have any ideas or suggestions, please open an issue or a PR. I will be happy to discuss it with you.
 
 ### Features
@@ -74,7 +75,7 @@ type Section = {
 - [ ] useInput hook
 - [ ] useColorPicker hook
 - [ ] useSwitch hook
-- [ ] `documentMarkdown` add memory the position of the section
+- [ ] `documentMarkdown` remember active section position with url parameters
 - [ ] `documentMarkdown` add light and dark mode support
 
 ### Ideas
