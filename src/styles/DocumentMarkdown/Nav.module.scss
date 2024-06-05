@@ -25,12 +25,10 @@
         background: none;
         cursor: pointer;
         &:hover {
-          background: #eeeeee5e;
-          color: #000;
+          color: var(--color-primary);
         }
         &.active {
-          background: #eee;
-          color: #000;
+          color: var(--color-primary);
         }
       }
     }
