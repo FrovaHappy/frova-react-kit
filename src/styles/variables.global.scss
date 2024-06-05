@@ -1,0 +1,15 @@
+:root {
+  --color-primary: #007bff;
+  --color-success: #28a745;
+  --color-danger: #dc3545;
+  --color-warning: #ffc107;
+  --color-info: #17a2b8;
+  --color-text: #f7f7f7;
+  --color-bg: #343a40;
+
+  --p-1: 0.25rem;
+  --p-2: calc(var(--p-1)*2);
+  --p-3: calc(var(--p-1)*4);
+  --p-4: calc(var(--p-1)*8);
+  --p-5: calc(var(--p-1)*16);
+}
