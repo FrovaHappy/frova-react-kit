@@ -68,6 +68,7 @@ export default [
       alias({
         entries: getAlias
       })
-    ]
+    ],
+    external: [/\.(sass|scss|css)$/]
   }
 ]
