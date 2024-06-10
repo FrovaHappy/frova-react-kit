@@ -1,6 +1,6 @@
 import type { Article, Section } from '@/types'
 
-import style from '@styles/DocumentMarkdown/Nav.module.scss'
+import style from '@styles/DocumentMarkdown/shared.module.scss'
 export interface NavProps {
   articles: Article[]
   section: Section
@@ -29,7 +29,7 @@ function NavItem(props: NavItemProps) {
 function Nav(props: NavProps) {
   const { articles, section, setSection } = props
   return (
-    <nav className={style.nav}>
+    <nav className={style.aside}>
       {articles.map(article => (
         <ul key={article.title}>
           <x-title>{article.title}</x-title>

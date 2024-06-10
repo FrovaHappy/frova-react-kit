@@ -1,5 +1,5 @@
 import type { Anchor } from '@/types'
-import style from '@styles/DocumentMarkdown/InThisArticle.module.scss'
+import style from '@styles/DocumentMarkdown/shared.module.scss'
 
 interface InThisArticleProps {
   items: Anchor[]
@@ -11,17 +11,21 @@ function InThisArticle(props: InThisArticleProps) {
     1: style.space__1
   }
   return (
-    <ul className={style.inThisArticle}>
+    <aside className={style.aside}>
       <x-title>In this article</x-title>
-      {items.map(item => {
-        const hasSpace = spaces[item.space]
-        return (
-          <a key={item.title} href={`#${item.url}`} className={hasSpace}>
-            {item.title}
-          </a>
-        )
-      })}
-    </ul>
+      <ul>
+        {items.map(item => {
+          const hasSpace = spaces[item.space]
+          return (
+            <li key={item.url}>
+              <a href={`#${item.url}`} className={hasSpace}>
+                {item.title}
+              </a>
+            </li>
+          )
+        })}
+      </ul>
+    </aside>
   )
 }
 
