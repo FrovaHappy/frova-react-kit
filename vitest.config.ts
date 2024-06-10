@@ -21,6 +21,7 @@ export default defineConfig({
   },
   test: {
     globals: true,
+    setupFiles: ['./src/test/globalSetup.ts'],
     environment: 'jsdom',
     coverage: {
       exclude: ['.eslintrc.cjs', 'postcss.config.mjs', 'src/index.ts'],
