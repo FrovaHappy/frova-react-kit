@@ -23,6 +23,8 @@ npm install frova-react-kit
 ```jsx
 import { DocumentMarkdown } from 'frova-react-kit';
 
+const externalLink = https://gist.githubusercontent.com/FrovaHappy/58c836c7b48c4b2094f3037005c24b04/raw/exemple.md
+
 const App = () => (
   <DocumentMarkdown
     articles={[
@@ -31,7 +33,7 @@ const App = () => (
         sections: [
           {
             title: 'Hello Section 1',
-            url: 'https://gist.githubusercontent.com/FrovaHappy/58c836c7b48c4b2094f3037005c24b04/raw/1c7623b02cb68b4295654a31e6c0c617eb67ce43/exemple.md',
+            url: externalLink,
             space: 0,
           },
         ],
