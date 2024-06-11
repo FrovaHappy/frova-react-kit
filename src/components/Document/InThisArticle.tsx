@@ -10,6 +10,12 @@ function InThisArticle(props: InThisArticleProps) {
     0: style.space,
     1: style.space__1
   }
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.currentTarget.parentElement?.parentElement?.querySelectorAll('a').forEach(a => {
+      a.classList.remove(style.active)
+    })
+    e.currentTarget.classList.add(style.active)
+  }
   return (
     <aside className={style.aside}>
       <x-title>In this article</x-title>
@@ -18,7 +24,7 @@ function InThisArticle(props: InThisArticleProps) {
           const hasSpace = spaces[item.space]
           return (
             <li key={item.url}>
-              <a href={`#${item.url}`} className={hasSpace}>
+              <a href={`#${item.url}`} className={hasSpace} onClick={handleClick}>
                 {item.title}
               </a>
             </li>
