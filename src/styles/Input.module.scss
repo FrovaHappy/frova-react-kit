@@ -1,0 +1,77 @@
+.inputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 0.0625rem solid var(--color-text-alt);
+  border-radius: var(--p-1);
+
+  &:has(input:focus) {
+    border: 0.0625rem solid var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  &.error {
+    border: 0.0625rem solid var(--color-danger) !important;
+    color: var(--color-danger) !important;
+  }
+
+
+
+  &--title {
+    font-weight: 700;
+    text-wrap: nowrap;
+  }
+
+  &--line {
+    width: 1px;
+    flex-shrink: 0;
+    height: 70%;
+    background: var(--color-text-alt);
+  }
+}
+
+.props {
+  all: unset;
+  display: flex;
+  color: var(--color-text);
+  flex-wrap: nowrap;
+  text-wrap: nowrap;
+  align-items: center;
+  width: -webkit-fill-available;
+}
+
+
+// Styles for Error Message
+input {
+  &~.error {
+    display: none;
+  }
+
+  &:focus~.error {
+    background: var(--color-danger);
+    display: block;
+    border-radius: var(--p-1);
+    text-align: center;
+    width: fit-content;
+    top: 130%;
+    left: 0;
+    padding: 2.5%;
+    position: absolute;
+    text-wrap: nowrap;
+    color: #000;
+    z-index: var(--z-1);
+
+    &::before {
+      content: "";
+      display: block;
+      border: 0.3125rem solid transparent;
+      border-bottom: 0.3125rem solid var(--color-danger);
+      width: 0;
+      height: 0;
+      position: absolute;
+      top: -0.625rem;
+      left: 0.625rem;
+      z-index: var(--z-1);
+    }
+  }
+}
