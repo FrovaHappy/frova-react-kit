@@ -15,3 +15,14 @@ export interface Anchor {
   url: string
   space: number
 }
+
+export type StringUnitsHeight = `${number}px` | `${number}rem`
+
+export type StringUnitsWidth =
+  | StringUnits
+  | 'fit-content'
+  | 'auto'
+  | 'min-content'
+  | 'max-content'
+  | 'max-content'
+  | '-webkit-fill-available'
