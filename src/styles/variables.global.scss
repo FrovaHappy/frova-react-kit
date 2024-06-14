@@ -17,3 +17,11 @@
   --p-4: calc(var(--p-1)*8);
   --p-5: calc(var(--p-1)*16);
 }
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-text: #131313;
+    --color-text-alt: #2b2b2b;
+    --color-bg: #838383;
+    --color-content: #797979;
+  }
+}
