@@ -1,3 +1,5 @@
+import { JSX } from 'react'
+
 export interface Section {
   title: string
   hashtag: string
@@ -26,3 +28,5 @@ export type StringUnitsWidth =
   | 'max-content'
   | 'max-content'
   | '-webkit-fill-available'
+
+export type InputReturn<T> = [T, JSX.Element]
