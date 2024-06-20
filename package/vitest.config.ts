@@ -1,8 +1,8 @@
-// vite.config.js
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react-swc'
 
 import { compilerOptions } from './tsconfig.json'
+import process from 'node:process'
 import { resolve } from 'path'
 
 const alias = Object.entries(compilerOptions.paths).reduce((acc, [key, [value]]) => {
@@ -10,7 +10,7 @@ const alias = Object.entries(compilerOptions.paths).reduce((acc, [key, [value]])
   const path = value.substring(0, value.length - 2)
   return {
     ...acc,
-    [aliasKey]: resolve(__dirname, path)
+    [aliasKey]: resolve(process.cwd(), path)
   }
 }, {})
 
@@ -21,7 +21,7 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    setupFiles: ['./src/test/globalSetup.ts'],
+    setupFiles: ['./test/globalSetup.ts'],
     environment: 'jsdom',
     coverage: {
       exclude: ['.eslintrc.cjs', 'postcss.config.mjs', 'src/index.ts'],

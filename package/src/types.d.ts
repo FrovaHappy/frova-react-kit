@@ -21,7 +21,7 @@ export interface Anchor {
 export type StringUnitsHeight = `${number}px` | `${number}rem`
 
 export type StringUnitsWidth =
-  | StringUnits
+  | StringUnitsHeight
   | 'fit-content'
   | 'auto'
   | 'min-content'

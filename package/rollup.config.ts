@@ -3,30 +3,31 @@ import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import typescript from '@rollup/plugin-typescript'
 import postcss from 'rollup-plugin-postcss'
-import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import dts from 'rollup-plugin-dts'
 import alias from '@rollup/plugin-alias'
-// import terser from '@rollup/plugin-terser'
+import { resolve } from 'node:path'
+import pkg from './package.json' assert { type: 'json' }
+import ts from './tsconfig.json' assert { type: 'json' }
+import process from 'process'
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx', '.css', '.json', '.scss']
 
-import { compilerOptions } from './tsconfig.json'
-import { resolve } from 'path'
+const compilerOptions = ts.compilerOptions
 
-const customAlias = Object.entries(compilerOptions.paths).reduce((acc, [key, [value]]) => {
+const customAlias = Object.entries(compilerOptions.paths).map(([key, [value]]) => {
   const aliasKey = key.substring(0, key.length - 2)
   const path = value.substring(0, value.length - 2)
-  return {
-    ...acc,
-    [aliasKey]: resolve(__dirname, path)
-  }
-}, {})
 
-const getAlias = Object.entries(customAlias).map(([key, value]) => {
+  const absolutePath = resolve(process.cwd(), path)
+  console.log(absolutePath)
   return {
-    find: key,
-    replacement: value
+    find: aliasKey,
+    replacement: absolutePath
   }
+})
+
+const aliasConfig = alias({
+  entries: customAlias
 })
 
 export default [
@@ -34,41 +35,34 @@ export default [
     input: 'src/index.ts',
     output: [
       {
-        file: './dist/index.esm.js',
+        file: pkg.main,
         format: 'esm'
       },
       {
-        file: './dist/index.cjs.js',
+        file: pkg.module,
         format: 'cjs'
       }
     ],
     plugins: [
-      peerDepsExternal(),
       json(),
       nodeResolve({ extensions, browser: true }),
       commonjs(),
       typescript(),
       // terser(),
       postcss(),
-      alias({
-        entries: getAlias
-      })
-    ]
+      aliasConfig
+    ],
+    external: ['react']
   },
   {
     input: 'src/index.ts',
     output: [
       {
-        file: './dist/types.d.ts',
+        file: pkg.types,
         format: 'es'
       }
     ],
-    plugins: [
-      dts.default(),
-      alias({
-        entries: getAlias
-      })
-    ],
-    external: [/\.(sass|scss|css)$/]
+    plugins: [dts({ tsconfig: 'tsconfig.json' }), aliasConfig],
+    external: ['react', /\.(sass|scss|css)$/]
   }
 ]

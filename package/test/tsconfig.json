@@ -10,20 +10,14 @@
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "Bundler",
     "jsx": "react-jsx",
-    "resolvePackageJsonImports": true,
     "resolveJsonModule": true,
-    "types": ["vitest/globals", "./src/global.d.ts"],
+    "types": ["vitest/globals", "../src/global.d.ts"],
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@mocks/*": ["test/mocks/*"],
-      "@utils/*": ["src/utils/*"],
-      "@styles/*": ["src/styles/*"]
+      "@mocks/*": ["mocks/*"],
     }
   },
-  "include": ["src/**/*"],
+  "include": [ "**/*.ts", "**/*.tsx", "tsconfig.json" ],
   "exclude": ["node_modules", "dist"]
 }

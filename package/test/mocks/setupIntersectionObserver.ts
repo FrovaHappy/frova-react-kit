@@ -29,10 +29,4 @@ export function setupIntersectionObserverMock({
     configurable: true,
     value: MockIntersectionObserver
   })
-
-  Object.defineProperty(global, 'IntersectionObserver', {
-    writable: true,
-    configurable: true,
-    value: MockIntersectionObserver
-  })
 }
