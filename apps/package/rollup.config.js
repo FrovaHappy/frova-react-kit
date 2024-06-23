@@ -18,6 +18,9 @@ const extensions = ['.js', '.jsx', '.ts', '.tsx', '.css', '.json', '.scss']
 
 const compilerOptions = ts.compilerOptions
 
+const external = [...Object.keys(pkg.dependencies), ...Object.keys(pkg.peerDependencies)]
+console.log(external)
+
 const customAlias = Object.entries(compilerOptions.paths).map(([key, [value]]) => {
   const aliasKey = key.substring(0, key.length - 2)
   const path = value.substring(0, value.length - 2)
@@ -73,7 +76,7 @@ export default [
       }),
       aliasConfig
     ],
-    external: ['react']
+    external: [...external, 'react/jsx-runtime']
   },
   {
     input: 'src/index.ts',
