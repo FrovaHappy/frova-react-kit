@@ -1,7 +1,0 @@
-{
-  "ignore": ["**/*.test.ts", "**/*.test.tsx"],
-  "watch": ["src"],
-  "exec": "npm run build && npm link",
-  "ext": "ts,tsx,json,js,scss",
-  "delay": 1000
-}
