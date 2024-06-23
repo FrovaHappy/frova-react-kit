@@ -3,19 +3,19 @@ import useCalcPercent from '@hooks/useReduceByPercentRatio'
 describe('test useCalcPercent', () => {
   test('should return a "auto" value if passed "auto" as value', () => {
     const percent = useCalcPercent('auto', 0.5)
-    expect('auto')
+    expect(percent).toBe('auto')
   })
   test('should return a "min-content" value if passed "min-content" as value', () => {
     const percent = useCalcPercent('min-content', 0.5)
-    expect('min-content')
+    expect(percent).toBe('min-content')
   })
   test('should return a "max-content" value if passed "max-content" as value', () => {
     const percent = useCalcPercent('max-content', 0.5)
-    expect('max-content')
+    expect(percent).toBe('max-content')
   })
   test('should return a "fit-content" value if passed "max-content" as value', () => {
     const percent = useCalcPercent('fit-content', 0.5)
-    expect('fit-content')
+    expect(percent).toBe('fit-content')
   })
 
   test('should return a reduced value', () => {

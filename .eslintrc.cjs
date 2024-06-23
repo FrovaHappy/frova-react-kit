@@ -2,13 +2,13 @@ module.exports = {
   overrides: [
     {
       parser: "@typescript-eslint/parser",
+      extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
       plugins: ["@typescript-eslint"],
+      files: ["*.js", "*.jsx", "*.ts", "*.tsx"],
       env: {
         browser: true,
         es2021: true,
       },
-      extends: ["love"],
-      files: ["*.js", "*.jsx", "*.ts", "*.tsx"],
       rules: {
         "@typescript-eslint/comma-dangle": "off",
         "@typescript-eslint/strict-boolean-expressions": "off",
@@ -29,10 +29,11 @@ module.exports = {
           },
         ],
       },
+      parserOptions: {},
     },
   ],
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: ["./tsconfig.json", "./*/tsconfig.json"],
+    project: ["./tsconfig.json", "./**/tsconfig.json"],
   },
 };

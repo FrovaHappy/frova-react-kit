@@ -10,6 +10,10 @@ import pkg from './package.json' assert { type: 'json' }
 import ts from './tsconfig.json' assert { type: 'json' }
 import process from 'process'
 
+import postcssPresetEnv from 'postcss-preset-env'
+import autoprefixer from 'autoprefixer'
+import PostcssModulesPlugin from 'postcss-modules'
+
 const extensions = ['.js', '.jsx', '.ts', '.tsx', '.css', '.json', '.scss']
 
 const compilerOptions = ts.compilerOptions
@@ -19,7 +23,6 @@ const customAlias = Object.entries(compilerOptions.paths).map(([key, [value]]) =
   const path = value.substring(0, value.length - 2)
 
   const absolutePath = resolve(process.cwd(), path)
-  console.log(absolutePath)
   return {
     find: aliasKey,
     replacement: absolutePath
@@ -49,7 +52,25 @@ export default [
       commonjs(),
       typescript(),
       // terser(),
-      postcss(),
+      postcss({
+        plugins: [postcssPresetEnv(), autoprefixer(), PostcssModulesPlugin()],
+        autoModules: false,
+        onlyModules: false,
+        extensions: ['.scss'],
+        use: ['sass'],
+        minimize: true,
+        sourceMap: false
+        // modules: {
+        //   generateScopedName: (name, filename, css) => {
+        //     if (filename.includes('global')) {
+        //       return name
+        //     }
+        //     const hash = stringHash(css).toString(36).substring(0, 5)
+        //     return `test_${name}_${hash}`
+        //   }
+        // },
+        // extract: 'css/test-library.min.css'
+      }),
       aliasConfig
     ],
     external: ['react']
@@ -62,7 +83,7 @@ export default [
         format: 'es'
       }
     ],
-    plugins: [dts({ tsconfig: 'tsconfig.json' }), aliasConfig],
+    plugins: [dts({ tsconfig: 'tsconfig.build.json' }), aliasConfig],
     external: ['react', /\.(sass|scss|css)$/]
   }
 ]

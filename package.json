@@ -1,15 +1,22 @@
 {
   "name": "frova-react-kit",
   "workspaces": [
-    "website",
-    "package"
+    "apps/*"
   ],
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-love": "^53.0.0",
+    "eslint-plugin-react": "^7.34.1",
+    "love": "^3.4.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "typescript-eslint": "^7.13.1"
+  }
 }

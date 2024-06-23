@@ -1,6 +1,7 @@
 {
   "name": "frova-react-kit",
   "version": "0.1.0",
+  "type": "module",
   "description": "React components for frova",
   "repository": {
     "type": "git",
@@ -20,7 +21,7 @@
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "build": "rollup -c --configPlugin typescript",
+    "build": "rollup -c rollup.config.js",
     "dev": "nodemon",
     "publish": "npm run build && npm publish --access public"
   },
@@ -41,8 +42,6 @@
     "@vitest/coverage-v8": "^1.6.0",
     "@vitest/ui": "^1.6.0",
     "autoprefixer": "^10.4.19",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.34.1",
     "globals": "^15.2.0",
     "jsdom": "^24.0.0",
     "nodemon": "^3.1.1",
@@ -55,10 +54,10 @@
     "rollup-plugin-postcss": "^4.0.2",
     "sass": "^1.77.2",
     "string-hash": "^1.1.3",
+    "tslib": "^2.6.3",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.9.0",
-    "vitest": "^1.6.0",
-    "tslib": "^2.6.3"
+    "vitest": "^1.6.0"
   },
   "dependencies": {
     "rehype-highlight": "^7.0.0",
