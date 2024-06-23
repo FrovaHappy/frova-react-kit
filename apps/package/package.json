@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "type": "module",
   "description": "React components for frova",
+  "license": "MIT",
+  "author": "frova_happy",
+  "keywords": [],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/FrovaHappy/frova-react-kit"
@@ -25,9 +28,6 @@
     "link": "npm run build && npm link",
     "publish": "npm run build && npm publish --access public"
   },
-  "keywords": [],
-  "author": "frova_happy",
-  "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-alias": "^5.1.0",
     "@rollup/plugin-terser": "^0.4.4",
