@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Nav, { type NavProps } from './Nav'
-import { Anchor, Article, Section } from '@/types'
+import { type Anchor, type Article, type Section } from '@/types'
 import Content from './Content'
 import useFetchMd from '@hooks/useFetchMd'
 import useParseMd from '@hooks/useParseMd'
@@ -47,18 +47,18 @@ function Document(props: DocumentProps) {
   }, [section])
 
   if (loading)
-    return (
+    {return (
       <MainContent articles={articles} section={section} setSection={setSection}>
         <Loading />
       </MainContent>
-    )
+    )}
 
   if (error)
-    return (
+    {return (
       <MainContent articles={articles} section={section} setSection={setSection}>
         <div>{error}</div>
       </MainContent>
-    )
+    )}
   return (
     <MainContent articles={articles} section={section} setSection={setSection}>
       <Content html={data} />

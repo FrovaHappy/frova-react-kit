@@ -1,4 +1,4 @@
-import { Anchor } from '@/types'
+import { type Anchor } from '@/types'
 
 const documents = `
 <h1 id="hello-world">Hello World</h1>

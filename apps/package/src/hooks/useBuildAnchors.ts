@@ -1,4 +1,4 @@
-import { Anchor } from '@/types'
+import { type Anchor } from '@/types'
 
 export default function useBuildAnchors(docStr: string): Anchor[] {
   const doc = document.createElement('div')

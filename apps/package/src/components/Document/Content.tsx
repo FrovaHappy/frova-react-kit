@@ -15,7 +15,7 @@ function Content(props: Props) {
     }
     const handleObserver = (entries: IntersectionObserverEntry[]) => {
       if (!entries[0].isIntersecting) return
-      let active = entries[0].target.id
+      const active = entries[0].target.id
 
       const anchor = window.document.querySelector('a[href="#' + active + '"]')
       anchor?.parentElement?.parentElement?.querySelectorAll('a').forEach(a => {

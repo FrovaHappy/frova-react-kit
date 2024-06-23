@@ -2,7 +2,7 @@ import type { HTMLProps } from 'react'
 
 import classList from '@styles/Input.module.scss'
 import useReduceByPercentRatio, { Reduced } from '@/hooks/useReduceByPercentRatio'
-import { StringUnitsWidth, StringUnitsHeight } from '@/types'
+import { type StringUnitsWidth, type StringUnitsHeight } from '@/types'
 
 export interface InputContentProps {
   title?: string

@@ -1,7 +1,7 @@
 import React from 'react'
 import InputText from '@/components/InputText'
-import { InputContentProps } from '@/components/InputContent'
-import { InputReturn } from '@/types'
+import { type InputContentProps } from '@/components/InputContent'
+import { type InputReturn } from '@/types'
 type Value = string | undefined
 
 interface Props extends InputContentProps {
