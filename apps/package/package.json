@@ -25,7 +25,7 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "build": "rollup -c rollup.config.js",
-    "link": "npm run build && npm link",
+    "dev": "nodemon --watch src --exec \"npm run build\"",
     "publish": "npm run build && npm publish --access public"
   },
   "devDependencies": {
