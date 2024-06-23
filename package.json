@@ -1,24 +1,30 @@
 {
-  "name": "frova-react-kit",
   "workspaces": [
     "apps/*"
   ],
+  "type": "module",
   "devDependencies": {
-    "@eslint/js": "^9.2.0",
-    "eslint": "^8.57.0",
+    "@eslint/js": "^9.5.0",
+    "@typescript-eslint/utils": "^7.13.1",
+    "eslint": "8.57.0",
     "eslint-config-love": "^53.0.0",
-    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react": "^7.34.3",
     "love": "^3.4.1",
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.4",
+    "typescript-eslint": "^7.13.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pack:build": "npm run build --workspace=apps/package",
+    "pack:link": "npm link --workspace=apps/package",
+    "web-test:dev": "npm run dev --workspace=apps/website-test",
+    "web-test:link": "npm run link --workspace=apps/website-test",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "typescript-eslint": "^7.13.1"
+    "@typescript-eslint/parser": "^7.13.1"
   }
 }
