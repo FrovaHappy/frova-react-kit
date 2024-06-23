@@ -39,11 +39,11 @@ export default [
     output: [
       {
         file: pkg.main,
-        format: 'esm'
+        format: 'cjs'
       },
       {
         file: pkg.module,
-        format: 'cjs'
+        format: 'esm'
       }
     ],
     plugins: [
