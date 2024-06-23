@@ -6,13 +6,12 @@ import postcss from 'rollup-plugin-postcss'
 import dts from 'rollup-plugin-dts'
 import alias from '@rollup/plugin-alias'
 import { resolve } from 'node:path'
+
 import pkg from './package.json' assert { type: 'json' }
 import ts from './tsconfig.json' assert { type: 'json' }
 import process from 'process'
 
-import postcssPresetEnv from 'postcss-preset-env'
 import autoprefixer from 'autoprefixer'
-import PostcssModulesPlugin from 'postcss-modules'
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx', '.css', '.json', '.scss']
 
@@ -56,23 +55,9 @@ export default [
       typescript(),
       // terser(),
       postcss({
-        plugins: [postcssPresetEnv(), autoprefixer(), PostcssModulesPlugin()],
-        autoModules: false,
-        onlyModules: false,
+        plugins: [autoprefixer()],
         extensions: ['.scss'],
-        use: ['sass'],
-        minimize: true,
-        sourceMap: false
-        // modules: {
-        //   generateScopedName: (name, filename, css) => {
-        //     if (filename.includes('global')) {
-        //       return name
-        //     }
-        //     const hash = stringHash(css).toString(36).substring(0, 5)
-        //     return `test_${name}_${hash}`
-        //   }
-        // },
-        // extract: 'css/test-library.min.css'
+        use: ['sass']
       }),
       aliasConfig
     ],
