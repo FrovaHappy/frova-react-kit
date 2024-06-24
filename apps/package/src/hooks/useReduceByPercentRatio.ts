@@ -1,9 +1,10 @@
 import type { StringUnitsWidth } from '@/types'
 
-const getUnitValue = (s: StringUnitsWidth) => {
+const getUnitValue = (s: StringUnitsWidth): [number | undefined, string] => {
   const unit = s.includes('px') ? 'px' : 'rem'
   const value = parseInt(s.replace(unit, ''))
-  return [value, unit] as [number, string]
+  if (Number.isNaN(value)) return [, s]
+  return [value, unit]
 }
 
 export const Reduced = {
@@ -13,6 +14,7 @@ export const Reduced = {
 
 export default function useReduceByPercentRatio(value: StringUnitsWidth, percent: number) {
   const [val, unit] = getUnitValue(value)
+  if (!val) return value
   const fontSize = val * percent
   return `${fontSize}${unit}`
 }
