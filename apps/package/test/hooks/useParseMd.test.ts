@@ -28,7 +28,7 @@ const Rules = {
   },
   p: {
     title: 'should return a html string with p',
-    expect: ['hello p', '<p>hello p</p>']
+    expect: ['hello p', '<p> hello p</p>']
   },
   code: {
     title: 'should return a html string with code',
@@ -53,7 +53,7 @@ const Rules = {
     title: 'should return a html string with table',
     expect: [
       '| a | b  |  c |  d  |\n| - | :- | :-: | -: |\n| 1 | 2 | 3 | 4 |',
-      '<table>\n<thead>\n<tr>\n<th>a</th>\n<th align="left">b</th>\n<th align="center">c</th>\n<th align="right">d</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td align="left">2</td>\n<td align="center">3</td>\n<td align="right">4</td>\n</tr>\n</tbody>\n</table>'
+      '<table><thead><tr><th>a</th><th align="left">b</th><th align="center">c</th><th align="right">d</th></tr></thead><tbody><tr><td>1</td><td align="left">2</td><td align="center">3</td><td align="right">4</td></tr></tbody></table>'
     ]
   },
   ul: {
@@ -62,29 +62,29 @@ const Rules = {
   },
   img: {
     title: 'should return a html string with img',
-    expect: ['![alt](https://example.com/image.png)', '<p><img src="https://example.com/image.png" alt="alt"></p>']
+    expect: ['![alt](https://example.com/image.png)', '<p> <img src="https://example.com/image.png" alt="alt"></p>']
   },
   imgWithUrl: {
     title: 'should return a html string with img with url',
     expect: [
       '[![alt](https://example.com/image.png)](https://example.com)',
-      '<p><a href="https://example.com"><img src="https://example.com/image.png" alt="alt"></a></p>'
+      '<p> <a href="https://example.com"><img src="https://example.com/image.png" alt="alt"></a></p>'
     ]
   },
   imgs: {
     title: 'should return a html string with imgs',
     expect: [
       '![alt](https://example.com/image.png)\n![alt](https://example.com/image.png)',
-      '<p><img src="https://example.com/image.png" alt="alt"><img src="https://example.com/image.png" alt="alt"></p>'
+      '<p> <img src="https://example.com/image.png" alt="alt"><img src="https://example.com/image.png" alt="alt"></p>'
     ]
   },
   link: {
     title: 'should return a html string with a',
-    expect: ['[hello a](https://example.com)', '<p><a href="https://example.com">hello a</a></p>']
+    expect: ['[hello a](https://example.com)', '<p> <a href="https://example.com">hello a</a></p>']
   },
   linkRef: {
     title: 'should return a html string with a',
-    expect: ['[hello a][1]\n\n[1]: https://example.com', '<p><a href="https://example.com">hello a</a></p>']
+    expect: ['[hello a][1]\n\n[1]: https://example.com', '<p> <a href="https://example.com">hello a</a></p>']
   },
   hr: {
     title: 'should return a html string with hr',
@@ -92,15 +92,15 @@ const Rules = {
   },
   bold: {
     title: 'should return a html string with bold',
-    expect: ['**hello bold**', '<p><strong>hello bold</strong></p>']
+    expect: ['**hello bold**', '<p> <strong>hello bold</strong></p>']
   },
   italic: {
     title: 'should return a html string with italic',
-    expect: ['*hello italic*', '<p><em>hello italic</em></p>']
+    expect: ['*hello italic*', '<p> <em>hello italic</em></p>']
   },
   codeInLine: {
     title: 'should return a html string with code',
-    expect: ['`hello code`', '<p><code>hello code</code></p>']
+    expect: ['`hello code`', '<p> <code>hello code</code></p>']
   }
   // TODO: add table
   // TODO: add github-blockquote-alert

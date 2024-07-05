@@ -122,21 +122,15 @@ const formatTable = (props: FormatTable) => {
     index++
   }
   endBlock = index
-  return `<table>
-<thead>
-<tr>
-${tableHeader.map((header, i) => `<th${align[i] ? ` align="${align[i]}"` : ''}>${header}</th>`).join('\n')}
-</tr>
-</thead>
-<tbody>
-${tableBody
-  .map(
-    row =>
-      `<tr>\n${row.map((cell, i) => `<td${align[i] ? ` align="${align[i]}"` : ''}>${cell}</td>`).join('\n')}\n</tr>`
-  )
-  .join('\n')}
-</tbody>
-</table>`
+  const tableHeaderHtml = tableHeader
+    .map((header, i) => `<th${align[i] ? ` align="${align[i]}"` : ''}>${header}</th>`)
+    .join('')
+  const tableBodyHtml = tableBody
+    .map(
+      row => `<tr>${row.map((cell, i) => `<td${align[i] ? ` align="${align[i]}"` : ''}>${cell}</td>`).join('')}</tr>`
+    )
+    .join('')
+  return `<table><thead><tr>${tableHeaderHtml}</tr></thead><tbody>${tableBodyHtml}</tbody></table>`
 }
 
 export default async function useParseMd(str: string) {
@@ -146,6 +140,9 @@ export default async function useParseMd(str: string) {
   for (let i = 0; i < md.length; i++) {
     if (endBlock >= i) continue
     let line = md[i]
+
+    if (line.length === 0) continue
+
     if (line.match(rulesMatches.table)) {
       const text = formatTable({
         md,
@@ -225,17 +222,13 @@ export default async function useParseMd(str: string) {
         startIndex: i,
         match: rulesMatches.image,
         remplaceWith: [[rulesMatches.image, '<img src="$2" alt="$1">']],
-        contentExternal: '<p><contentReplaced></p>'
+        contentExternal: ' <contentReplaced>'
       })
       result.push(text)
       continue
     }
     if (line.startsWith('---')) {
       result.push(`<hr>`)
-      continue
-    }
-    if (line.length === 0) {
-      result.push('')
       continue
     }
 
@@ -253,10 +246,10 @@ export default async function useParseMd(str: string) {
       }
     })
 
-    result.push(`<p>${line}</p>`)
+    result.push(' ' + line)
   }
 
-  return result.join('\n')
+  return result.map(line => (line.startsWith('<') && line.endsWith('>') ? line : `<p>${line}</p>`)).join('')
 
   // const md = await remark()
   //   .use(remarkParse)
