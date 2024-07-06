@@ -133,15 +133,49 @@ const formatTable = (props: FormatTable) => {
   return `<table><thead><tr>${tableHeaderHtml}</tr></thead><tbody>${tableBodyHtml}</tbody></table>`
 }
 
+const linkRefs = (str: string) => {
+  const refs: Record<string, string> = {}
+  const reg = /^\[([\w\s()!@:%_\+.~#?&\/=-]+)\]:\s([\w()!@:%_\+.~#?&\/=-]+)$/gm
+  let match = reg.exec(str)
+  while (match) {
+    refs[match[1]] = match[2]
+    str = str.replace(match[0], '')
+    match = reg.exec(str)
+  }
+  return [str, refs] as [string, typeof refs]
+}
+
+const formatLink = (props: { md: string[]; startIndex: number; refs: Record<string, string> }) => {
+  const { md, startIndex, refs } = props
+  let text = md[startIndex]
+  const linkRegex = /\[([\w\s()<>()!@:%_\+.~#?&\/=-]+)\]\[([\w()!@:%_\+.~#?&\/=-]+)\]/g
+  let match = linkRegex.exec(text)
+  while (match) {
+    const [remplace, anchorContent, keyRef] = match
+    console.log(anchorContent, keyRef)
+    text = text.replace(remplace, `<a href="${refs[keyRef] ?? '#'}">${anchorContent}</a>`)
+    console.log(text)
+    match = linkRegex.exec(text)
+  }
+  return text
+}
+
 export default async function useParseMd(str: string) {
   endBlock = -1
-  const md = str.split('\n')
+  const [s, refs] = linkRefs(str)
+  const md = s.split('\n')
   const result: string[] = []
   for (let i = 0; i < md.length; i++) {
     if (endBlock >= i) continue
     let line = md[i]
 
     if (line.length === 0) continue
+
+    line = formatLink({
+      md,
+      startIndex: i,
+      refs
+    })
 
     if (line.match(rulesMatches.table)) {
       const text = formatTable({
