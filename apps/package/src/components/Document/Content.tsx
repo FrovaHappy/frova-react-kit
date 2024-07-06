@@ -1,5 +1,6 @@
 import style from '@styles/DocumentMarkdown/content.module.scss'
 import shared from '@styles/DocumentMarkdown/shared.module.scss'
+import hljs from 'highlight.js'
 import React from 'react'
 interface Props {
   html: string
@@ -8,6 +9,7 @@ function Content(props: Props) {
   const htmlRef = React.useRef<HTMLDivElement>(null)
   React.useEffect(() => {
     if (!htmlRef.current) return
+    hljs.highlightAll()
     const options = {
       root: null,
       rootMargin: `-40px`,
