@@ -88,21 +88,15 @@ const formatTable = (props: FormatTable) => {
         right: text.match(/^\|\s+-+:\s+\|/),
         center: text.match(/^\|\s+:-+:\s+\|/)
       }
-      const indexAligns = Object.values(aligns).findIndex(v => {
-        console.log(v)
-        return v
-      })
+      const indexAligns = Object.values(aligns).findIndex(v => v)
+
       if (indexAligns === -1) {
-        console.log('none')
         result.push(undefined)
       } else {
-        console.log(Object.keys(aligns)[indexAligns])
         result.push(Object.keys(aligns)[indexAligns])
       }
       text = text.replace('|', '').replace(match[1], '')
     }
-
-    console.log(result)
     return result
   })()
   index += 1 // skip align line
@@ -144,9 +138,7 @@ const formatLink = (props: { md: string[]; startIndex: number; refs: Record<stri
   let match = linkRegex.exec(text)
   while (match) {
     const [remplace, anchorContent, keyRef] = match
-    console.log(anchorContent, keyRef)
     text = text.replace(remplace, `<a href="${refs[keyRef] ?? '#'}">${anchorContent}</a>`)
-    console.log(text)
     match = linkRegex.exec(text)
   }
   return text
