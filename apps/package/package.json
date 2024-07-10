@@ -41,15 +41,6 @@
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.9.0"
   },
-  "dependencies": {
-    "rehype-highlight": "^7.0.0",
-    "rehype-stringify": "^10.0.0",
-    "remark": "^15.0.1",
-    "remark-gfm": "^4.0.0",
-    "remark-heading-id": "^1.0.1",
-    "remark-parse": "^11.0.0",
-    "remark-rehype": "^11.1.0"
-  },
   "peerDependencies": {
     "react": "^18.3.1"
   }
