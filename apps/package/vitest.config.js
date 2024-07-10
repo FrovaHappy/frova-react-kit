@@ -24,6 +24,7 @@ export default defineConfig({
     setupFiles: ['./test/globalSetup.ts'],
     environment: 'jsdom',
     coverage: {
+      reportsDirectory: '../../coverage',
       exclude: ['.eslintrc.cjs', 'postcss.config.mjs', 'src/index.ts'],
       reporter: ['json-summary', 'text'],
       reportOnFailure: true
