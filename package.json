@@ -21,7 +21,7 @@
     "test": "vitest",
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage",
+    "test:coverage": "vitest --coverage --config vitest.coverage.mts",
     "pack:build": "npm run build --workspace=apps/package",
     "pack:link": "npm link --workspace=apps/package",
     "web-test:dev": "npm run dev --workspace=apps/website-test",
