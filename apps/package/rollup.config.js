@@ -12,7 +12,7 @@ import process from 'process'
 
 const compilerOptions = ts.compilerOptions
 
-const external = [...Object.keys(pkg.dependencies), ...Object.keys(pkg.peerDependencies)]
+const external = [...Object.keys(pkg.dependencies ?? {}), ...Object.keys(pkg.peerDependencies ?? {})]
 
 const customAlias = Object.entries(compilerOptions.paths).map(([key, [value]]) => {
   const aliasKey = key.substring(0, key.length - 2)
