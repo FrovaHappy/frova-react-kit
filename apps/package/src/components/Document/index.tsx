@@ -8,6 +8,52 @@ import Loading from '@/components/Loading'
 import InThisArticle from './InThisArticle'
 import useBuildAnchors from '@hooks/useBuildAnchors'
 import style from '@styles/DocumentMarkdown/index.module.scss'
+import shared from '@styles/DocumentMarkdown/shared.module.scss'
+import IconChevronRight from '@/icons/IconChevronRight'
+import IconMenu2 from '@/icons/IconMenu2'
+
+function SectionsPhone(props: { inArticleContent?: boolean; title?: string }) {
+  const { inArticleContent, title } = props
+  const handleClick = (el: 'title' | 'inArticle') => {
+    return (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      console.log(el)
+      const parent = e.currentTarget.parentElement?.parentElement ?? null
+
+      console.log(parent, shared.aside)
+      const [firth, second] =
+        e.currentTarget.parentElement?.parentElement?.querySelectorAll<HTMLDivElement>(`.${shared.aside}`) ?? []
+      if (el === 'title') {
+        console.log(el)
+        firth.classList.toggle(shared['aside--active'])
+        second?.classList.remove(shared['aside--active'])
+        return
+      }
+      if (el === 'inArticle') {
+        if (!second) firth.classList.toggle(shared['aside--active'])
+        else {
+          firth.classList.remove(shared['aside--active'])
+          second.classList.toggle(shared['aside--active'])
+        }
+        return
+      }
+    }
+  }
+  return (
+    <div className={style.document__phone}>
+      {!title || (
+        <div onClick={handleClick('title')}>
+          <p>{title}</p>
+          <IconChevronRight />
+        </div>
+      )}
+      {!inArticleContent || (
+        <div onClick={handleClick('inArticle')}>
+          <IconMenu2 />
+        </div>
+      )}
+    </div>
+  )
+}
 interface DocumentProps {
   articles: Article[]
 }
@@ -16,6 +62,7 @@ function MainContent(props: React.PropsWithChildren<{}> & NavProps) {
   return (
     <div className={style.document}>
       <Nav articles={articles} section={section} setSection={setSection} />
+      <SectionsPhone />
       {children}
     </div>
   )
@@ -46,24 +93,32 @@ function Document(props: DocumentProps) {
     promise()
   }, [section])
 
-  if (loading)
-    {return (
-      <MainContent articles={articles} section={section} setSection={setSection}>
+  if (loading) {
+    return (
+      <div className={style.document}>
+        <Nav articles={articles} section={section} setSection={setSection} />
+        <SectionsPhone />
         <Loading />
-      </MainContent>
-    )}
+      </div>
+    )
+  }
 
-  if (error)
-    {return (
-      <MainContent articles={articles} section={section} setSection={setSection}>
-        <div>{error}</div>
-      </MainContent>
-    )}
+  if (error) {
+    return (
+      <div className={style.document}>
+        <Nav articles={articles} section={section} setSection={setSection} />
+        <SectionsPhone />
+        {error}
+      </div>
+    )
+  }
   return (
-    <MainContent articles={articles} section={section} setSection={setSection}>
+    <div className={style.document}>
+      <Nav articles={articles} section={section} setSection={setSection} />
+      <SectionsPhone inArticleContent={anchors.length > 0} title={section.title} />
       <Content html={data} />
       <InThisArticle items={anchors} />
-    </MainContent>
+    </div>
   )
 }
 

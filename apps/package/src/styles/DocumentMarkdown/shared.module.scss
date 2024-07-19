@@ -19,7 +19,6 @@
   overflow: auto;
   height: min-content;
   max-height: 100%;
-
   & x-title {
     font-size: 1.25rem;
     font-weight: bold;
@@ -56,6 +55,25 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .aside {
+    display: none;
+
+    &--active {
+      display: block;
+      position: absolute;
+      padding: var(--p-2);
+      background-color: var(--color-text);
+      border-radius: var(--p-1);
+      box-shadow: var(--shadow-1);
+      color: var(--color-bg);
+      top: 6rem;
+      left: 0;
+    }
+  }
+
+
+}
 .space {
   &__1 {
     margin-left: 1rem !important;
