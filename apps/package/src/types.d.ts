@@ -30,3 +30,9 @@ export type StringUnitsWidth =
   | '-webkit-fill-available'
 
 export type InputReturn<T> = [T, JSX.Element]
+
+export interface Icons extends React.SVGProps<SVGSVGElement> {
+  size?: number
+  strokeWidth?: number
+  color?: string
+}
