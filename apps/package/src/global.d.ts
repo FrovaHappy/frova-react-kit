@@ -3,7 +3,7 @@ declare module '*.module.scss' {
   export default content
 }
 
-namespace JSX {
+declare namespace JSX {
   interface IntrinsicElements {
     'x-title': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>
   }
