@@ -1,5 +1,5 @@
 import style from '@styles/DocumentMarkdown/content.module.scss'
-import shared from '@styles/DocumentMarkdown/shared.module.scss'
+import shared from '@styles/DocumentMarkdown/index.module.scss'
 import hljs from 'highlight.js'
 import React from 'react'
 interface Props {

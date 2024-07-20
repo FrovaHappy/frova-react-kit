@@ -1,6 +1,6 @@
 import type { Article, Section } from '@/types'
 
-import style from '@styles/DocumentMarkdown/shared.module.scss'
+import style from '@styles/DocumentMarkdown/index.module.scss'
 export interface NavProps {
   articles: Article[]
   section: Section

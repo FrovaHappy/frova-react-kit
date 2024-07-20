@@ -8,7 +8,6 @@ import Loading from '@/components/Loading'
 import InThisArticle from './InThisArticle'
 import useBuildAnchors from '@hooks/useBuildAnchors'
 import style from '@styles/DocumentMarkdown/index.module.scss'
-import shared from '@styles/DocumentMarkdown/shared.module.scss'
 import IconChevronRight from '@/icons/IconChevronRight'
 import IconMenu2 from '@/icons/IconMenu2'
 
@@ -17,18 +16,17 @@ function SectionsPhone(props: { inArticleContent?: boolean; title?: string }) {
   const handleClick = (el: 'title' | 'inArticle') => {
     return (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       const parent = e.currentTarget.parentElement?.parentElement ?? null
-      const [firth, second] =
-        e.currentTarget.parentElement?.parentElement?.querySelectorAll<HTMLDivElement>(`.${shared.aside}`) ?? []
+      const [firth, second] = parent?.querySelectorAll(`.${style.aside}`) ?? []
       if (el === 'title') {
-        firth.classList.toggle(shared['aside--active'])
-        second?.classList.remove(shared['aside--active'])
+        firth.classList.toggle(style['aside--active'])
+        second?.classList.remove(style['aside--active'])
         return
       }
       if (el === 'inArticle') {
-        if (!second) firth.classList.toggle(shared['aside--active'])
+        if (!second) firth.classList.toggle(style['aside--active'])
         else {
-          firth.classList.remove(shared['aside--active'])
-          second.classList.toggle(shared['aside--active'])
+          firth.classList.remove(style['aside--active'])
+          second.classList.toggle(style['aside--active'])
         }
         return
       }
