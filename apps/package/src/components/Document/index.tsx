@@ -16,14 +16,10 @@ function SectionsPhone(props: { inArticleContent?: boolean; title?: string }) {
   const { inArticleContent, title } = props
   const handleClick = (el: 'title' | 'inArticle') => {
     return (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      console.log(el)
       const parent = e.currentTarget.parentElement?.parentElement ?? null
-
-      console.log(parent, shared.aside)
       const [firth, second] =
         e.currentTarget.parentElement?.parentElement?.querySelectorAll<HTMLDivElement>(`.${shared.aside}`) ?? []
       if (el === 'title') {
-        console.log(el)
         firth.classList.toggle(shared['aside--active'])
         second?.classList.remove(shared['aside--active'])
         return
