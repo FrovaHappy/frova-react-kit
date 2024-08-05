@@ -10,6 +10,12 @@ function InThisArticle(props: InThisArticleProps) {
     0: style.space,
     1: style.space__1
   }
+  const hiddenArticle = () => {
+    const nav = document.querySelector(`.${style['aside--active']}`)
+    if (nav) {
+      nav.classList.remove(style['aside--active'])
+    }
+  }
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.currentTarget.parentElement?.parentElement?.querySelectorAll('a').forEach(a => {
       a.classList.remove(style.active)
@@ -17,7 +23,7 @@ function InThisArticle(props: InThisArticleProps) {
     e.currentTarget.classList.add(style.active)
   }
   return (
-    <aside className={style.aside}>
+    <aside className={style.aside} onClick={hiddenArticle}>
       <x-title>In this article</x-title>
       <ul>
         {items.map(item => {

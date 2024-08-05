@@ -28,8 +28,14 @@ function NavItem(props: NavItemProps) {
 
 function Nav(props: NavProps) {
   const { articles, section, setSection } = props
+  const hiddenNav = () => {
+    const nav = document.querySelector(`.${style['aside--active']}`)
+    if (nav) {
+      nav.classList.remove(style['aside--active'])
+    }
+  }
   return (
-    <nav className={style.aside}>
+    <nav className={style.aside} onClick={hiddenNav}>
       {articles.map(article => (
         <ul key={article.title}>
           <x-title>{article.title}</x-title>
