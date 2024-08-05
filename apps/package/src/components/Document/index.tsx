@@ -13,7 +13,7 @@ import IconMenu2 from '@/icons/IconMenu2'
 
 function SectionsPhone(props: { inArticleContent?: boolean; title?: string }) {
   const { inArticleContent, title } = props
-  const handleClick = (el: 'title' | 'inArticle') => {
+  const showSection = (el: 'title' | 'inArticle') => {
     return (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       const parent = e.currentTarget.parentElement?.parentElement ?? null
       const [firth, second] = parent?.querySelectorAll(`.${style.aside}`) ?? []
@@ -35,13 +35,13 @@ function SectionsPhone(props: { inArticleContent?: boolean; title?: string }) {
   return (
     <div className={style.document__phone}>
       {!title || (
-        <div onClick={handleClick('title')}>
+        <div onClick={showSection('title')}>
           <p>{title}</p>
           <IconChevronRight />
         </div>
       )}
       {!inArticleContent || (
-        <div onClick={handleClick('inArticle')}>
+        <div onClick={showSection('inArticle')}>
           <IconMenu2 />
         </div>
       )}
@@ -50,16 +50,6 @@ function SectionsPhone(props: { inArticleContent?: boolean; title?: string }) {
 }
 interface DocumentProps {
   articles: Article[]
-}
-function MainContent(props: React.PropsWithChildren<{}> & NavProps) {
-  const { articles, section, setSection, children } = props
-  return (
-    <div className={style.document}>
-      <Nav articles={articles} section={section} setSection={setSection} />
-      <SectionsPhone />
-      {children}
-    </div>
-  )
 }
 
 function Document(props: DocumentProps) {

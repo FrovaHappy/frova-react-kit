@@ -5,12 +5,7 @@
   overflow: auto;
 
   /* TITLES And Paragraphs */
-  & h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  &:where(h1, h2, h3, h4, h5, h6) {
     font-weight: bold;
     margin: .5rem 0;
     width: 100%;
