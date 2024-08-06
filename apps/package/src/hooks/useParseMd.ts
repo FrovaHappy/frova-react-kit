@@ -5,7 +5,7 @@ const rulesMatches = {
   tasklist: /^-\s\[([\sx])\]\s/,
   image: /^!\[([\w\s()!@:%_\+.~#?&\/=-]+)\]\(([\w()!@:%_\+.~#?&\/=-]+)\)/,
   code: /^```([\w\W]+)/,
-  table: /^\|([\w\s<>"()!@:%_\+.~#?&\/=-]+)\|/
+  table: /^\|([\w\d\s<>"()!@:%_\+.~#?&\/=-]+)\|/
 }
 
 let endBlock = -1
@@ -65,38 +65,36 @@ const formatTable = (props: FormatTable) => {
   let index = startIndex
   const tableRegex = rulesMatches.table
   const cellsContent = (i: number) => {
-    const result: string[] = []
     let text = md[i]
-    let match = text.match(tableRegex)
-    while ((match = text.match(tableRegex)) !== null) {
-      result.push(match[1].trim())
-      text = text.replace('|', '').replace(match[1], '')
-    }
+    let result: string[] = text
+      .split('|')
+      .map(v => v.trim() ?? undefined)
+      .filter(v => v)
     return result
   }
   const tableHeader: string[] = cellsContent(index)
   index += 1 // Skip header line
   const align: Array<string | undefined> = (() => {
-    const result: typeof align = []
     const alignRegex = /\|(\s+:?-+:?\s+)\|/
     let text = md[index]
-    let match = text.match(alignRegex)
-    if (!match) return result
-    while ((match = text.match(alignRegex)) !== null) {
-      const aligns = {
-        left: text.match(/^\|\s+:-+\s+\|/),
-        right: text.match(/^\|\s+-+:\s+\|/),
-        center: text.match(/^\|\s+:-+:\s+\|/)
-      }
-      const indexAligns = Object.values(aligns).findIndex(v => v)
 
-      if (indexAligns === -1) {
-        result.push(undefined)
-      } else {
-        result.push(Object.keys(aligns)[indexAligns])
-      }
-      text = text.replace('|', '').replace(match[1], '')
-    }
+    if (!alignRegex.test(text)) return []
+
+    const result: typeof align = text
+      .split('|')
+      .map(v => v ?? undefined)
+      .filter(v => v)
+      .map(v => {
+        const aligns = {
+          left: /\s+:-+\s+/,
+          right: /\s+-+:\s+/,
+          center: /\s+:-+:\s+/
+        }
+        if (aligns.left.test(v)) return 'left'
+        if (aligns.right.test(v)) return 'right'
+        if (aligns.center.test(v)) return 'center'
+        return undefined
+      })
     return result
   })()
   index += 1 // skip align line
