@@ -24,7 +24,7 @@
       width: 100%;
       height: min-content;
       padding: 1rem;
-      background: var(--color-bg);
+      background: var(--color-content);
       border-radius: var(--p-1);
       box-shadow: var(--shadow-1);
       justify-content: space-between;
@@ -53,7 +53,7 @@
         }
 
         &:hover {
-          background: var(--color-content);
+          opacity: 0.8;
           color: var(--color-text);
           cursor: pointer;
         }
