@@ -117,47 +117,77 @@ const formatTable = (props: FormatTable) => {
   return `<table><thead><tr>${tableHeaderHtml}</tr></thead><tbody>${tableBodyHtml}</tbody></table>`
 }
 
-const linkRefs = (str: string) => {
-  const refs: Record<string, string> = {}
-  const reg = /^\[([\w\s()!@:%_\+.~#?&\/=-]+)\]:\s([\w()!@:%_\+.~#?&\/=-]+)$/gm
-  let match = reg.exec(str)
-  while (match) {
-    refs[match[1]] = match[2]
-    str = str.replace(match[0], '')
-    match = reg.exec(str)
+const formatLinkWithRefs = (props: { md: string[] }) => {
+  const { md } = props
+  const recordLinksReferences = () => {
+    const references: Record<string, string> = {}
+    let str = md.join('\n')
+    const reg = /^\[([\w\s()!@:%_\+.~#?&\/=-]+)\]:\s([\w()!@:%_\+.~#?&\/=-]+)$/gm
+    let match = reg.exec(str)
+    while (match) {
+      references[match[1]] = match[2]
+      str = str.replace(match[0], '')
+      match = reg.exec(str)
+    }
+    return [str, references] as [string, typeof references]
   }
-  return [str, refs] as [string, typeof refs]
+
+  const remplaceLinkInLineWithRefs = (line: string) => {
+    let text = line
+    const linkRegex = /\[([\w\s()<>()!@:%_\+.~#?&\/=-]+)\]\[([\w()!@:%_\+.~#?&\/=-]+)\]/g
+    let match = linkRegex.exec(text)
+    if (!match) return text
+    do {
+      const [remplace, anchorContent, keyRef] = match
+      text = text.replace(remplace, `<a href="${refs[keyRef] ?? '#'}">${anchorContent}</a>`)
+      match = linkRegex.exec(text)
+    } while (match)
+    return text
+  }
+
+  const [s, refs] = recordLinksReferences()
+
+  return s.split('\n').map(line => remplaceLinkInLineWithRefs(line))
 }
 
-const formatLink = (props: { md: string[]; startIndex: number; refs: Record<string, string> }) => {
-  const { md, startIndex, refs } = props
-  let text = md[startIndex]
-  const linkRegex = /\[([\w\s()<>()!@:%_\+.~#?&\/=-]+)\]\[([\w()!@:%_\+.~#?&\/=-]+)\]/g
-  let match = linkRegex.exec(text)
-  while (match) {
-    const [remplace, anchorContent, keyRef] = match
-    text = text.replace(remplace, `<a href="${refs[keyRef] ?? '#'}">${anchorContent}</a>`)
-    match = linkRegex.exec(text)
+function formatInline(str: string) {
+  let line = str
+  const regInline: Record<string, [RegExp, string]> = {
+    code: [/`([\w\W]+?[^`])`/, `<code>$1</code>`],
+    strong: [/[\*]{2}(([\w\W]+?[^*]))[\*]{2}/, '<strong>$1</strong>'],
+    italic: [/\*(([\w\W]+?[^*]))\*/, '<em>$1</em>'],
+    image: [/\!\[([\w\s()!@:%_\+.~#?&\/=-]+)\]\(([\w()!@:%_\+.~#?&\/=-]+)\)/, '<img src="$2" alt="$1">'],
+    anchor: [/\[([\w\s<>"()!@:%_\+.~#?&\/=-]+)\]\(([\w()!@:%_\+.~#?&\/=-]+)\)/, '<a href="$2">$1</a>']
   }
-  return text
+  Object.values(regInline).forEach(([reg, replace]) => {
+    if (!line.match(reg)) return
+
+    while (line.match(reg)?.length ?? 0 > 0) {
+      line = line.replace(reg, replace)
+    }
+  })
+  return line
 }
 
 export default async function useParseMd(str: string) {
   endBlock = -1
-  const [s, refs] = linkRefs(str)
-  const md = s.split('\n')
+
+  let md = str.split('\n')
+  md = formatLinkWithRefs({ md })
+
   const result: string[] = []
+
+  md = md.map(line => {
+    line = formatInline(line)
+    line = line.startsWith('<') ? ` ${line}` : line
+    return line
+  })
+
   for (let i = 0; i < md.length; i++) {
     if (endBlock >= i) continue
     let line = md[i]
 
     if (line.length === 0) continue
-
-    line = formatLink({
-      md,
-      startIndex: i,
-      refs
-    })
 
     if (line.match(rulesMatches.table)) {
       const text = formatTable({
@@ -171,6 +201,17 @@ export default async function useParseMd(str: string) {
       const count = line.split('#').length - 1
       const text = line.replace(/^#+\s*/, '')
       result.push(`<h${count} id="${text.replaceAll(' ', '-')}">${text}</h${count}>`)
+      continue
+    }
+    if (line.match(/^ <img/)) {
+      const text = formatBlock({
+        md,
+        startIndex: i,
+        match: /^ <img/,
+        remplaceWith: [[/^\s([\w\W]+)/, '$1']],
+        contentExternal: '<p><contentReplaced></p>'
+      })
+      result.push(text)
       continue
     }
 
@@ -232,38 +273,17 @@ export default async function useParseMd(str: string) {
       result.push(text)
       continue
     }
-    if (line.match(rulesMatches.image)) {
-      const text = formatBlock({
-        md,
-        startIndex: i,
-        match: rulesMatches.image,
-        remplaceWith: [[rulesMatches.image, '<img src="$2" alt="$1">']],
-        contentExternal: ' <contentReplaced>'
-      })
-      result.push(text)
-      continue
-    }
     if (line.startsWith('---')) {
       result.push(`<hr>`)
       continue
     }
-
-    // Style in line
-    const regInline: Record<string, [RegExp, string]> = {
-      code: [/`([\w\W]+?[^`])`/, `<code>$1</code>`],
-      strong: [/[\*]{2}(([\w\W]+?[^*]))[\*]{2}/, '<strong>$1</strong>'],
-      italic: [/\*(([\w\W]+?[^*]))\*/, '<em>$1</em>'],
-      image: [/\!\[([\w\s()!@:%_\+.~#?&\/=-]+)\]\(([\w()!@:%_\+.~#?&\/=-]+)\)/, '<img src="$2" alt="$1">'],
-      anchor: [/\[([\w\s<>"()!@:%_\+.~#?&\/=-]+)\]\(([\w()!@:%_\+.~#?&\/=-]+)\)/, '<a href="$2">$1</a>']
-    }
-    Object.values(regInline).forEach(([reg, replace]) => {
-      while (line.match(reg)?.length ?? 0 > 0) {
-        line = line.replace(reg, replace)
-      }
-    })
-
-    result.push(' ' + line)
+    result.push(line)
   }
+
+  result.forEach(line => {
+    if (line.startsWith(' <img')) {
+    }
+  })
 
   return result.map(line => (line.startsWith('<') && line.endsWith('>') ? line : `<p>${line}</p>`)).join('')
 }
