@@ -28,7 +28,7 @@ const Rules = {
   },
   p: {
     title: 'should return a html string with p',
-    expect: ['hello p', '<p> hello p</p>']
+    expect: ['hello p', '<p>hello p</p>']
   },
   code: {
     title: 'should return a html string with code',
@@ -62,7 +62,7 @@ const Rules = {
   },
   img: {
     title: 'should return a html string with img',
-    expect: ['![alt](https://example.com/image.png)', '<p> <img src="https://example.com/image.png" alt="alt"></p>']
+    expect: ['![alt](https://example.com/image.png)', '<p><img src="https://example.com/image.png" alt="alt"></p>']
   },
   imgWithUrl: {
     title: 'should return a html string with img with url',
@@ -75,7 +75,7 @@ const Rules = {
     title: 'should return a html string with imgs',
     expect: [
       '![alt](https://example.com/image.png)\n![alt](https://example.com/image.png)',
-      '<p> <img src="https://example.com/image.png" alt="alt"><img src="https://example.com/image.png" alt="alt"></p>'
+      '<p><img src="https://example.com/image.png" alt="alt"><img src="https://example.com/image.png" alt="alt"></p>'
     ]
   },
   link: {
